@@ -130,6 +130,15 @@
   </collision>
 </link>
 
+<!-- Optical frame - required for correct point cloud orientation in RViz -->
+<joint name="realsense_optical_joint" type="fixed">
+  <parent link="realsense_DCAM_1"/>
+  <child  link="realsense_DCAM_1_optical"/>
+  <origin xyz="0 0 0" rpy="1.57 3.14 1.57"/>   <!-- This is the magic rotation -->
+</joint>
+
+<link name="realsense_DCAM_1_optical"/>
+
 <joint name="left_wheel_joint" type="continuous">
   <origin xyz="-0.007821 0.134829 0.065288" rpy="0 0 0"/>
   <parent link="base_link"/>

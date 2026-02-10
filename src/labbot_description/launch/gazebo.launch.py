@@ -75,19 +75,6 @@ def generate_launch_description():
     #     actions=[controller_manager]
     # )
 
-    diff_drive_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_drive_controller"],
-    )
-
-    delayed_diff_drive_spawner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=spawn_model_node,
-            on_start=[diff_drive_spawner],
-        )
-    )
-
     joint_broad_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -96,8 +83,21 @@ def generate_launch_description():
 
     delayed_joint_broad_spawner = RegisterEventHandler(
         event_handler=OnProcessStart(
-            target_action=diff_drive_spawner,
+            target_action=spawn_model_node,
             on_start=[joint_broad_spawner],
+        )
+    )
+
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_drive_controller"],
+    )
+
+    delayed_diff_drive_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=joint_broad_spawner,
+            on_start=[diff_drive_spawner],
         )
     )
 
@@ -116,14 +116,38 @@ def generate_launch_description():
         )
     )
 
+    rviz_config_path = os.path.join(
+        get_package_share_directory(package_name),
+        'rviz',
+        'labbot.rviz'  
+    )
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', rviz_config_path] if os.path.exists(rviz_config_path) else [],
+        parameters=[{'use_sim_time': True}],
+    )
+
+    # Start RViz after the robot is spawned
+    delayed_rviz = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=spawn_model_node,
+            on_start=[rviz_node],
+        )
+    )
+
     # Build and return the launch description
     ld = LaunchDescription()
     ld.add_action(gazebo_launch)
     ld.add_action(spawn_model_node)
     ld.add_action(robot_state_publisher_node)
+    ld.add_action(delayed_rviz)
     # ld.add_action(delayed_controller_manager)
-    ld.add_action(delayed_diff_drive_spawner)
     ld.add_action(delayed_joint_broad_spawner)
+    ld.add_action(delayed_diff_drive_spawner)
     ld.add_action(delayed_camera_spawner)     
 
     return ld
