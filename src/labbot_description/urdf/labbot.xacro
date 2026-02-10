@@ -1,0 +1,169 @@
+<?xml version="1.0" ?>
+<robot name="labbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find labbot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find labbot_description)/urdf/labbot.trans" />
+<xacro:include filename="$(find labbot_description)/urdf/labbot.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.008596676102084632 -0.0018055092478346526 0.21959692118930352" rpy="0 0 0"/>
+    <mass value="9.375174912108328"/>
+    <inertia ixx="0.712159" iyy="0.706032" izz="0.2013" ixy="0.000548" iyz="0.004513" ixz="-0.005447"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_whel_link_2">
+  <inertial>
+    <origin xyz="0.00040460307586471546 0.015994701532051597 5.538683957660717e-05" rpy="0 0 0"/>
+    <mass value="3.0826877913349446"/>
+    <inertia ixx="0.003275" iyy="0.006019" izz="0.003274" ixy="6.9e-05" iyz="1e-05" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.007821 -0.134829 -0.065288" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/left_whel_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.007821 -0.134829 -0.065288" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/left_whel_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_link_1">
+  <inertial>
+    <origin xyz="5.088081718130841e-06 -0.015999425002053425 -5.724166510311102e-05" rpy="0 0 0"/>
+    <mass value="3.0826877913349446"/>
+    <inertia ixx="0.003273" iyy="0.006021" izz="0.003274" ixy="-1e-06" iyz="1e-05" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.011178 0.134197 -0.064344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/right_wheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.011178 0.134197 -0.064344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/right_wheel_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camstand_link_1">
+  <inertial>
+    <origin xyz="0.04217217408283482 0.005436617139108826 0.028147884402392465" rpy="0 0 0"/>
+    <mass value="0.3405562197162376"/>
+    <inertia ixx="0.000116" iyy="0.000122" izz="9.7e-05" ixy="-8e-06" iyz="-2e-06" ixz="-1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.003673 0.014592 -0.865908" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/camstand_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.003673 0.014592 -0.865908" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/camstand_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camera_link_1">
+  <inertial>
+    <origin xyz="0.012761178626573465 -0.025656134990035738 0.035753842102039024" rpy="0 0 0"/>
+    <mass value="0.1292700599625678"/>
+    <inertia ixx="8.5e-05" iyy="5.2e-05" izz="6.9e-05" ixy="1e-06" iyz="1e-06" ixz="-1.8e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.050811 -0.01711 -0.903937" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.050811 -0.01711 -0.903937" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="realsense_DCAM_1">
+  <inertial>
+    <origin xyz="0.011661374386282217 -0.0011595109215310883 0.0009812665813246912" rpy="0 0 0"/>
+    <mass value="0.2863277278245428"/>
+    <inertia ixx="0.000184" iyy="2.8e-05" izz="0.000185" ixy="-2e-06" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.076424 0.007908 -0.952026" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/realsense_DCAM_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.076424 0.007908 -0.952026" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find labbot_description)/meshes/realsense_DCAM_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="left_wheel_joint" type="continuous">
+  <origin xyz="-0.007821 0.134829 0.065288" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_whel_link_2"/>
+  <axis xyz="0 1 0"/>
+</joint>
+
+<joint name="right_wheel_joint" type="continuous">
+  <origin xyz="-0.011178 -0.134197 0.064344" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_link_1"/>
+  <axis xyz="0 1 0"/>
+</joint>
+
+<joint name="camstand_joint" type="revolute">
+  <origin xyz="0.003673 -0.014592 0.865908" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="camstand_link_1"/>
+  <axis xyz="0.003611 5.5e-05 0.999993"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="cam_joint" type="revolute">
+  <origin xyz="0.047138 0.031702 0.038029" rpy="0 0 0"/>
+  <parent link="camstand_link_1"/>
+  <child link="camera_link_1"/>
+  <axis xyz="4e-06 1.0 -5.5e-05"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="camera_joint" type="fixed">
+  <origin xyz="0.025613 -0.025018 0.048089" rpy="0 0 0"/>
+  <parent link="camera_link_1"/>
+  <child link="realsense_DCAM_1"/>
+</joint>
+
+</robot>
