@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-<name>labbot_description</name>
+  <name>labbot_description</name>
   <version>0.0.0</version>
-<description>The labbot_description package</description>
+  <description>The labbot_description package</description>
   <maintainer email="abhinav@todo.com">author</maintainer>
   <license>TODO: License declaration</license>
 
@@ -12,6 +12,7 @@
   <exec_depend>ros_gazebo_bridge</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

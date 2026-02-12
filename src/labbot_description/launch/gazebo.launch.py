@@ -18,7 +18,10 @@ def generate_launch_description():
     # Resolve model file path
     package_share = get_package_share_directory(package_name)
     path_model_file = os.path.join(package_share, model_file_rel_path)
-    path_world_file = world_file_abs_path  # Already absolute
+    path_world_file = os.path.join(package_share, 'worlds', 'cafe.world')  # Relative path to world file
+
+    GAZEBO_MODEL_PATH = os.path.join(package_share, 'models')
+    os.environ['GAZEBO_MODEL_PATH'] = GAZEBO_MODEL_PATH
 
     # File existence checks
     if not os.path.exists(path_model_file):
@@ -42,7 +45,7 @@ def generate_launch_description():
     spawn_model_node = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', robot_xacro_name, '-topic', 'robot_description'],
+        arguments=['-entity', robot_xacro_name, '-topic', 'robot_description', '-x', '0', '-y', '0', '-z', '0.5'],
         output='screen'
     )
 
@@ -139,11 +142,20 @@ def generate_launch_description():
         )
     )
 
+    robot_localization_node = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[os.path.join(package_share, 'config/ekf.yaml'), {'use_sim_time': True}]
+    )
+
     # Build and return the launch description
     ld = LaunchDescription()
     ld.add_action(gazebo_launch)
     ld.add_action(spawn_model_node)
     ld.add_action(robot_state_publisher_node)
+    ld.add_action(robot_localization_node)
     ld.add_action(delayed_rviz)
     # ld.add_action(delayed_controller_manager)
     ld.add_action(delayed_joint_broad_spawner)

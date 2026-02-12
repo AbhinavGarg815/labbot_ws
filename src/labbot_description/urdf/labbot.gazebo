@@ -95,76 +95,97 @@
   </gazebo>
 
   <gazebo reference="realsense_DCAM_1">
-
-    <sensor name="d435i_color" type="camera">
-      <always_on>true</always_on>
-      <update_rate>30</update_rate>
-      <visualize>true</visualize>
-      <pose>0 0 0 0 0 0</pose>
-
-      <camera name="color">
-        <horizontal_fov>1.088</horizontal_fov>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.05</near>
-          <far>20.0</far>
-        </clip>
-      </camera>
-
-      <plugin name="d435i_color_plugin" filename="libgazebo_ros_camera.so">
-        <always_on>true</always_on>
-        <update_rate>30</update_rate>
-        <ros>
-          <namespace>/realsense/color</namespace>
-        </ros>
-        <camera_name>color</camera_name>
-        <image_topic_name>image_raw</image_topic_name>
-        <camera_info_topic_name>camera_info</camera_info_topic_name>
-        <frame_name>realsense_DCAM_1_optical</frame_name>
-      </plugin>
-    </sensor>
-
     <!-- Depth camera -->
-    <sensor name="d435i_depth" type="depth">  <!-- Use type="camera" even for depth -->
+    <sensor name="d435i_depth_camera" type="depth">  <!-- Use type="camera" even for depth -->
       <always_on>true</always_on>
       <update_rate>20</update_rate>  <!-- Slightly lower to reduce load -->
-      <visualize>false</visualize>   <!-- No need for extra frustum -->
-
-      <camera name="depth">
-        <horizontal_fov>1.088</horizontal_fov>
+      <visualize>true</visualize>   <!-- No need for extra frustum -->
+      <camera>
+        <horizontal_fov>1.204</horizontal_fov>
         <image>
           <width>640</width>
           <height>480</height>
           <format>B8G8R8</format>  <!-- Avoids fallback error -->
         </image>
         <clip>
-          <near>0.05</near>
-          <far>20.0</far>
+          <near>0.3</near>
+          <far>3.0</far>
         </clip>
       </camera>
-
-      <plugin name="d435i_depth_plugin" filename="libgazebo_ros_camera.so">
-        <always_on>true</always_on>
-        <update_rate>20</update_rate>
-
-        <ros>
-          <namespace>/realsense/depth</namespace>
-        </ros>
-
-        <camera_name>depth</camera_name>
-        <image_topic_name>image_raw</image_topic_name>
-        <camera_info_topic_name>camera_info</camera_info_topic_name>
-        <point_cloud_topic_name>points</point_cloud_topic_name>
-
+      <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
         <frame_name>realsense_DCAM_1_optical</frame_name>  <!-- Use optical if set up -->
-        <point_cloud>true</point_cloud>
-        <point_cloud_cutoff>0.05</point_cloud_cutoff>
-        <point_cloud_cutoff_max>20.0</point_cloud_cutoff_max>
+        <point_cloud_cutoff>0.3</point_cloud_cutoff>
+        <point_cloud_cutoff_max>3.0</point_cloud_cutoff_max>
       </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+    <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <ros>
+          <namespace>/mpu6050</namespace>
+          <remapping>~/out:=imu</remapping>
+        </ros>
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
+      </plugin>
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
     </sensor>
   </gazebo>
 
