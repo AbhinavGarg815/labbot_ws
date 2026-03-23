@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000
+    update_rate: 50
     use_sim_time: true
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -19,6 +19,7 @@ diff_drive_controller:
     publish_rate: 50.0
     odom_frame_id: "odom"
     use_stamped_vel: true
+    enable_odom_tf: false
 
 camera_position_controller:
   ros__parameters:

@@ -45,7 +45,7 @@ def generate_launch_description():
     spawn_model_node = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', robot_xacro_name, '-topic', 'robot_description', '-x', '0', '-y', '0', '-z', '0.5'],
+        arguments=['-entity', robot_xacro_name, '-topic', 'robot_description', '-x', '0', '-y', '0', '-z', '0.0625'],
         output='screen'
     )
 
@@ -156,7 +156,7 @@ def generate_launch_description():
     ld.add_action(spawn_model_node)
     ld.add_action(robot_state_publisher_node)
     ld.add_action(robot_localization_node)
-    ld.add_action(delayed_rviz)
+    # ld.add_action(delayed_rviz)
     # ld.add_action(delayed_controller_manager)
     ld.add_action(delayed_joint_broad_spawner)
     ld.add_action(delayed_diff_drive_spawner)
