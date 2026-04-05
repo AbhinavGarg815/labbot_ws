@@ -1,6 +1,7 @@
 build/
 install/
 log/
-rtabmap_log.txt
+rtabmap_logs.txt
+navigation_logs.txt
 bot.urdf
 rtabmap.db

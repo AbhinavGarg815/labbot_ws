@@ -167,6 +167,7 @@
   <child link="camstand_link_1"/>
   <axis xyz="0.003611 5.5e-05 0.999993"/>
   <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="20.0" friction="10.0"/> 
 </joint>
 
 <joint name="cam_joint" type="revolute">
@@ -175,6 +176,7 @@
   <child link="camera_link_1"/>
   <axis xyz="4e-06 1.0 -5.5e-05"/>
   <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+  <dynamics damping="20.0" friction="10.0"/>
 </joint>
 
 <joint name="camera_joint" type="fixed">

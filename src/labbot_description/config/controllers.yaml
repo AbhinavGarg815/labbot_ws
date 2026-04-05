@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50
+    update_rate: 100
     use_sim_time: true
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -16,9 +16,9 @@ diff_drive_controller:
     wheel_separation: 0.30
     wheel_radius: 0.0625 
     base_frame_id: "base_link"
-    publish_rate: 50.0
+    publish_rate: 100.0
     odom_frame_id: "odom"
-    use_stamped_vel: true
+    use_stamped_vel: false
     enable_odom_tf: false
 
 camera_position_controller:
@@ -27,5 +27,5 @@ camera_position_controller:
       - camstand_joint
       - cam_joint
     gains:
-      camstand_joint: {p: 150.0, d: 2.0, i: 0.1, i_clamp: 1.0}
-      cam_joint:      {p: 150.0, d: 2.0, i: 0.1, i_clamp: 1.0}
+      camstand_joint: {p: 5.0,  d: 0.5, i: 0.01, i_clamp: 0.5}
+      cam_joint:      {p: 3.0,  d: 0.3, i: 0.01, i_clamp: 0.5}
